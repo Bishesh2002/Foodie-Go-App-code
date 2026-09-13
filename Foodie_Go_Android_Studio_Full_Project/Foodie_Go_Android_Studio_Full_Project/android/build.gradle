@@ -1,0 +1,16 @@
+// Keep all Android subproject build outputs in Flutter's expected top-level
+// build/ directory. Without this, Gradle can successfully create the APK
+// under android/app/build, while `flutter run` looks under build/app/...
+rootProject.buildDir = "../build"
+
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
